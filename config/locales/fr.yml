@@ -1,0 +1,12 @@
+fr:
+  other_address: "Autre adresse"
+  add_new_shipping_address: "Ajouter une nouvelle adresse d'expédition"
+  new_shipping_address: "Nouvelle adresse d'expédition"
+  edit_shipping_address: "Modifier adresse d'expédition"
+  no_shipping_addresses_on_file: "Il n'y a pas d'adresse d'expédition enregistrée"
+  shipping_addresses: "Adresses d'expédition"
+  successfully_saved: "Enregistrée avec succès"
+  unsuccessfully_saved: "Il y a eu une erreur en enregistrant votre adresse."
+  successfully_updated: "Modifiée avec succès"
+  unsuccessfully_updated: "Il y a eu un changement pendant l'enregistrement de votre adresse."
+  save: "Enregistrer"
