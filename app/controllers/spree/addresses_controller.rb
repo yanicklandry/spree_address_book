@@ -5,9 +5,14 @@ class Spree::AddressesController < Spree::BaseController
   
   def create
     params['address']['user_id'] = spree_current_user.id
-    Spree::Address.create!(params['address'])
-    flash[:notice] = I18n.t(:successfully_created, :resource => I18n.t(:address))
-    redirect_back_or_default(account_path)
+    @address=Spree::Address.create(params['address'])
+    if(@address.save)
+      flash[:notice] = I18n.t(:successfully_created, :resource => I18n.t(:address))
+      redirect_back_or_default(account_path)
+    else
+      flash[:error] = @address.errors.empty? ? "Error" : @address.errors.full_messages.join(', ')
+      render :action => 'new'
+    end
   end
   
   def edit
@@ -18,6 +23,10 @@ class Spree::AddressesController < Spree::BaseController
     if @address.editable?
       if @address.update_attributes(params[:address])
         flash[:notice] = I18n.t(:successfully_updated, :resource => I18n.t(:address))
+        redirect_back_or_default(account_path)
+      else
+        flash[:error] = @address.errors.empty? ? "Error" : @address.errors.full_messages.join(', ')
+        render :action => 'edit'
       end
     else
       new_address = @address.clone
@@ -25,9 +34,12 @@ class Spree::AddressesController < Spree::BaseController
       @address.update_attribute(:deleted_at, Time.now)
       if new_address.save
         flash[:notice] = I18n.t(:successfully_updated, :resource => I18n.t(:address))
+        redirect_back_or_default(account_path)
+      else
+        flash[:error] = new_address.errors.empty? ? "Error" : new_address.errors.full_messages.join(', ')
+        render :action => 'edit'
       end
     end
-    redirect_back_or_default(account_path)
   end
 
   def destroy
